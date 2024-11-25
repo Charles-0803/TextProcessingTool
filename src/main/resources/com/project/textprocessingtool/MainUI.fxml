@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.project.textprocessingtool.HelloController">
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.project.textprocessingtool.MainUIController"
+      spacing="10" alignment="TOP_LEFT">
     <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        <Insets top="10" right="10" bottom="10" left="10"/>
     </padding>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
+    <!-- Regex Module -->
+    <Label text="Regex Module"/>
+    <TextField fx:id="inputField" promptText="Enter input text"/>
+    <TextField fx:id="patternField" promptText="Enter regex pattern"/>
+    <TextField fx:id="replaceField" promptText="Enter replacement text"/>
+
+    <HBox spacing="12">
+        <!-- Regex Action Buttons -->
+        <Button text="Match" onAction="#handleMatch" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Replace" onAction="#handleReplace" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Search Index" onAction="#handleSearchIndex" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Clear All" onAction="#handleClearAll" style="-fx-background-color: #ff4d4d; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+
+
+    <TextArea fx:id="resultArea" prefHeight="100" editable="false"/>
+
+    <!-- Data Management Module -->
+    <Label text="Data Management Module"/>
+    <TextField fx:id="dataNameField" promptText="Enter name"/>
+    <TextField fx:id="dataIdField" promptText="Enter ID"/>
+    <HBox spacing="12">
+        <!-- Data Management Action Buttons -->
+        <Button text="Add Data" onAction="#handleAddData" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Update Data" onAction="#handleUpdateData" style="-fx-background-color: #ffc107; -fx-text-fill: white; -fx-font-weight: bold;"/>
+        <Button text="Delete Data" onAction="#handleDeleteData" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-font-weight: bold;"/>
+    </HBox>
+    <ListView fx:id="dataListView" prefHeight="150"/>
 </VBox>
