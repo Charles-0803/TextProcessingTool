@@ -1,38 +1,40 @@
 package com.project.textprocessingtool;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import com.project.textprocessingtool.RegexProcessor;
+import com.project.textprocessingtool.CustomData;
+import com.project.textprocessingtool.DataManager;
+import java.util.*;
 
-public class MainUIController {
-    @FXML
-    private TextField inputField;
-    @FXML
-    private TextField patternField;
-    @FXML
-    private TextField replaceField;
-    @FXML
-    private TextArea resultArea;
+public class DataController {
+    private final DataManager<CustomData> dataManager = new DataManager<>();
 
-    private final RegexProcessor regexProcessor = new RegexProcessor();
-
-    @FXML
-    public void handleMatch() {
-        String text = inputField.getText();
-        String pattern = patternField.getText();
-
-        String result = RegexProcessor.findMatches(text, pattern);
-        resultArea.setText(result);
+    public void addData(String name, int id) {
+        dataManager.addToList(new CustomData(name, id));
     }
 
-    @FXML
-    public void handleReplace() {
-        String text = inputField.getText();
-        String pattern = patternField.getText();
-        String replacement = replaceField.getText();
+    public void updateData(CustomData original, String newName, int newId) {
+        List<CustomData> dataList = dataManager.getList();
 
-        String result = RegexProcessor.replaceText(text, pattern, replacement);
-        resultArea.setText(result);
+        int index = dataList.indexOf(original);
+        if (index != -1) {
+            dataList.set(index, new CustomData(newName, newId));
+        }
+    }
+
+    public void deleteData(CustomData data) {
+        dataManager.removeFromList(data);
+    }
+
+    public CustomData getDataByNameAndId(String name, int id) {
+        for (CustomData data : dataManager.getList()) {
+            if (data.getName().equals(name) && data.getId() == id) {
+                return data;
+            }
+        }
+        return null;
+    }
+
+    public List<CustomData> getAllData() {
+        return dataManager.getList();
     }
 }
+
